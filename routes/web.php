@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KasirController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
 
@@ -20,3 +21,4 @@ Route::get('/', function () {
 });
 
 Route::resource('produk', ProdukController::class);
+Route::resource('transaksi', KasirController::class);

@@ -12,7 +12,8 @@ class KasirController extends Controller
      */
     public function index()
     {
-        //
+        $allTransaksi = Kasir::all();
+        return view('kasir.index', compact('allTransaksi'));
     }
 
     /**
@@ -20,7 +21,7 @@ class KasirController extends Controller
      */
     public function create()
     {
-        //
+        return view('kasir.create');
     }
 
     /**
@@ -28,7 +29,17 @@ class KasirController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validasi
+        $validatedData = $request->validate([
+            'tanggal_transaksi' => 'required|date',
+            'total' => 'required',
+        ]);
+
+        // simpan data
+        Kasir::create($validatedData);
+
+        // redirect transaksi index
+        return redirect()->route('kasir.index');
     }
 
     /**
@@ -36,7 +47,7 @@ class KasirController extends Controller
      */
     public function show(Kasir $kasir)
     {
-        //
+        return view('kasir.show', compact('kasir'));
     }
 
     /**
@@ -44,7 +55,7 @@ class KasirController extends Controller
      */
     public function edit(Kasir $kasir)
     {
-        //
+        return view('kasir.edit', compact('kasir'));
     }
 
     /**
@@ -52,7 +63,16 @@ class KasirController extends Controller
      */
     public function update(Request $request, Kasir $kasir)
     {
-        //
+        $validatedData = $request->validate([
+            'tanggal_transaksi' => 'required|date',
+            'total' => 'required',
+        ]);
+
+        // update data
+        $kasir->update($validatedData);
+
+        // redirect transaksi index
+        return redirect()->route('kasir.index');
     }
 
     /**
@@ -60,6 +80,8 @@ class KasirController extends Controller
      */
     public function destroy(Kasir $kasir)
     {
-        //
+        $kasir->delete();
+
+        return redirect()->route('kasir.index');
     }
 }
