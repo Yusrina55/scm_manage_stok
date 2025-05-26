@@ -7,7 +7,8 @@
         <div class="form-group gap-6">
             <label for="">Nama Produk:</label>
             <input type="text" name="nama_produk" id="" value="{{ $produk->nama_produk }}">
-            <input type="integer" name="harga" id="" value="{{ $produk->harga}}">
+            <label for="" style="margin-top: 1rem;">Harga:</label>
+            <input type="number" name="harga" id="" value="{{ $produk->harga}}">
         </div>
         <button type="submit" class="tombol">Update</button>
     </form>

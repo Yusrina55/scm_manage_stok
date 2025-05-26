@@ -15,10 +15,10 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($logMasuks as $key => $log)
+        @foreach ($allLog as $key => $log)
         <tr>
             <td>{{ $key + 1 }}</td>
-            <td>{{ $log->produk->nama_produk ?? '-' }}</td>
+            <td>{{ $log->produks->nama_produk}}</td>
             <td>{{ $log->kuantitas_masuk }}</td>
             <td>{{ $log->harga_supplier }}</td>
             <td>{{ $log->tanggal_masuk }}</td>

@@ -11,8 +11,8 @@ class LogMasuk extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function produk(): BelongsTo
+    public function produks(): BelongsTo
     {
-        return $this->belongsTo(Produk::class);
+        return $this->belongsTo(Produk::class, 'produk_id','id');
     }
 }

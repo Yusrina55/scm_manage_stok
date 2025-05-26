@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kasir;
 use Illuminate\Http\Request;
+use App\Models\DetailKasir;
 
 class KasirController extends Controller
 {
@@ -12,8 +13,8 @@ class KasirController extends Controller
      */
     public function index()
     {
-        $allTransaksi = Kasir::all();
-        return view('kasir.index', compact('allTransaksi'));
+        $produkList = \App\Models\Produk::all();
+        return view('kasir.create', compact('produkList'));
     }
 
     /**
@@ -29,17 +30,37 @@ class KasirController extends Controller
      */
     public function store(Request $request)
     {
-        //validasi
-        $validatedData = $request->validate([
-            'tanggal_transaksi' => 'required|date',
-            'total' => 'required',
+        $request->validate([
+        'tanggal_transaksi' => 'required|date',
+        'produk_id.*' => 'required|exists:produks,id',
+        'kuantitas.*' => 'required|integer',
+        'harga_satuan.*' => 'required|numeric',
+    ]);
+
+    // Hitung total
+    $total = 0;
+    foreach ($request->kuantitas as $i => $qty) {
+        $total += $qty * $request->harga_satuan[$i];
+    }
+
+    // Simpan transaksi
+    $kasir = Kasir::create([
+        'tanggal_transaksi' => $request->tanggal_transaksi,
+        'total' => $total,
+    ]);
+
+    // Simpan detail transaksi
+    foreach ($request->produk_id as $i => $produkId) {
+        DetailKasir::create([
+            'kasir_id' => $kasir->id,
+            'produk_id' => $produkId,
+            'kuantitas' => $request->kuantitas[$i],
+            'harga_satuan' => $request->harga_satuan[$i],
+            'subtotal' => $request->kuantitas[$i] * $request->harga_satuan[$i],
         ]);
+    }
 
-        // simpan data
-        Kasir::create($validatedData);
-
-        // redirect transaksi index
-        return redirect()->route('kasir.index');
+    return redirect()->route('kasir.index');
     }
 
     /**

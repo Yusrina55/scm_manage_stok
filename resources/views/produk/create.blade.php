@@ -6,7 +6,8 @@
         <div class="form-group gap-6">
             <label for="">Nama Produk:</label>
             <input type="text" name="nama_produk" id="" placeholder="Masukkan nama produk">
-            <input type="integer" name="harga" id="" placeholder="Masukkan harga jual produk">
+            <label for="" style="margin-top: 1rem;">Harga:</label>
+            <input type="number" name="harga" id="" placeholder="Masukkan harga">
         </div>
         <button type="submit" class="tombol">Submit</button>
     </form>

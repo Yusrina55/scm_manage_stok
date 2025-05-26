@@ -12,7 +12,7 @@
         <div class="nav">
             <ul>
                 <li><a href="/produk">Produk</a></li>
-                <li><a href="/log-masuk">Log masuk</a></li>
+                <li><a href="/logmasuk">Log masuk</a></li>
                 <li><a href="/transaksi">Transaksi</a></li>
             </ul>
         </div>

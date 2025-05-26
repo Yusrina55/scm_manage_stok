@@ -13,8 +13,8 @@ class LogMasukController extends Controller
      */
     public function index()
     {
-        $logMasuks = LogMasuk::with('produk')->get(); 
-        return view('logmasuk.index', compact('logMasuks'));
+        $allLog = LogMasuk::with('produks')->get(); 
+        return view('logmasuk.index', compact('allLog'));
     }
 
     /**

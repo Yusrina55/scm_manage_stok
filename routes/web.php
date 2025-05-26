@@ -24,3 +24,4 @@ Route::get('/', function () {
 Route::resource('produk', ProdukController::class);
 Route::resource('transaksi', KasirController::class);
 Route::resource('logmasuk', LogMasukController::class);
+Route::resource('kasir', KasirController::class);
