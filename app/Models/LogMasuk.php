@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class LogMasuk extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function produks(): BelongsTo
+    {
+        return $this->belongsTo(Produk::class);
+    }
 }

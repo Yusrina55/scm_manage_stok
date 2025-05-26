@@ -12,7 +12,8 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        //
+        $allProduk = Produk::all();
+        return view('produk.index', compact('allProduk'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        //
+        return view('produk.create');
     }
 
     /**
@@ -28,7 +29,17 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validasi
+        $validatedData = $request->validate([
+            'nama_produk' => 'required',
+            'harga' => 'required',
+        ]);
+
+        // simpan data
+        Produk::create($validatedData);
+
+        // redirect produk index
+        return redirect()->route('produk.index');
     }
 
     /**
@@ -36,7 +47,7 @@ class ProdukController extends Controller
      */
     public function show(Produk $produk)
     {
-        //
+        return view('produk.show', compact('produk'));
     }
 
     /**
@@ -44,7 +55,7 @@ class ProdukController extends Controller
      */
     public function edit(Produk $produk)
     {
-        //
+        return view('produk.edit', compact('produk'));
     }
 
     /**
@@ -52,7 +63,16 @@ class ProdukController extends Controller
      */
     public function update(Request $request, Produk $produk)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_produk' => 'required',
+            'harga' => 'required',
+        ]);
+
+        // update data
+        $produk->update($validatedData);
+
+        // redirect produk index
+        return redirect()->route('produk.index');
     }
 
     /**
@@ -60,6 +80,9 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        //
+        $produk->delete();
+
+        // redirect produk index
+        return redirect()->route('produk.index');
     }
 }
